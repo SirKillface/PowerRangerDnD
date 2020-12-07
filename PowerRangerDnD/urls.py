@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import include, path, re_path
-from dashboard.views import dashboard
+from dashboard.views import dashboard, gameLoop
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # route empty path requests to dashboard
     re_path(r'^$', lambda x: redirect('/dashboard/')),
     path('dashboard/', dashboard),
+    path('gameLoop/', gameLoop),
 ]
