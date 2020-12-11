@@ -10,77 +10,112 @@
             border: 1px solid black;
             border-collapse: collapse;
         }
+        .container{
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+
+        .map {
+            display: grid;
+            width: 900px;
+            grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px 100px;
+            grid-template-rows: 100px 100px 100px 100px 100px 100px 100px 100px 100px;
+            {#background-color: #2196F3;#}
+            padding: 10px;
+        }
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            {#padding: 20px;#}
+            font-size: 20px;
+            {#text-align: center;#}
+        }
+        .roll-container{
+        }
     </style>
 </head>
 
 <body>
-
-<canvas id="myCanvas" width="560" height="560" style="border:2px solid #d3d3d3;"></canvas>
-<h2> player rolls</h2>
-<table>
-    <tbody>
-        <tr>
-            <td> RED </td>
-            <td> BLUE </td>
-            <td>BLACK </td>
-            <td>PINK </td>
-            <td>YELLOW </td>
-            <td>WHITE </td>
-            <td>GREEN </td>
-        </tr>
-        <tr>
-            <td>{{ p1 }}</td>
-            <td>{{ p2 }}</td>
-            <td>{{ p3 }}</td>
-            <td>{{ p4 }}</td>
-            <td>{{ p5 }}</td>
-            <td>{{ p6 }}</td>
-            <td>{{ p7 }}</td>
-        </tr>
-        <tr>
-            <td>Average  </td>
-            <td>{{ avg }}</td>
-        </tr>
-
-    </tbody>
-</table>
-
-
-<form method="POST" action ="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" name="Selection">
-</form>
-
-
-
-<script>
-
-var c=document.getElementById("myCanvas");
-var ctx=c.getContext("2d");
-
-for(i=0;i<9;i++) {
-    for(j=0;j<9;j++) {
-        ctx.moveTo(0,70*j);
-        ctx.lineTo(560,70*j);
-        ctx.stroke();
-
-        ctx.moveTo(70*i,0);
-        ctx.lineTo(70*i,560);
-        ctx.stroke();
-        var left = 0;
-        for(var a=0;a<9;a++) {
-            for(var b=0; b<9;b+=2) {
-                startX = b * 70;
-                if(a%2==0)
-                    startX = (b+1) * 70;
-                ctx.fillRect(startX + left,(a*70) ,70,70);
+    <div class="container">
+        <div>
+{#            <canvas id="myCanvas" width="900" height="900"></canvas>#}
+            <p id="map"></p>
+            <script>
+            console.log("test")
+            var mapData = "{{ mapData }}";
+            var allArray = mapData.split('')
+            var map = []
+            var i;
+            for (i = 0; i < allArray.length; i++) {
+              if(allArray[i] == 'O'){
+                  map.push(allArray[i])
+              }
+              else if(allArray[i] == 'R'){
+                  map.push(allArray[i])
+              }
+              else if(allArray[i] == 'X'){
+                  map.push(allArray[i])
+              }
+              else if(allArray[i] == 'T'){
+                  map.push(allArray[i])
+              }
             }
-        }
-    }
-}
+            var test = ""
+            for (i = 1; i < map.length; i++) {
 
-</script>
+                if(i % 9 == 0){
+                    test = test.concat(map[i] + ' ');
+                    console.log(test)
+                    test = ""
+                }
+                else{
+                    test = test.concat(map[i] + ' ');
+                }
+            }
+
+            document.getElementById("map").innerHTML = map;
+            </script>
+        </div>
+        <div class="roll-container">
+            <h2>Terrain: {{ area }}</h2>
+            <h2>Number of Enemy: {{ numEnemy }}</h2>
+            <h2> player rolls</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>RED </td>
+                            <td>BLUE </td>
+                            <td>BLACK </td>
+                            <td>PINK </td>
+                            <td>YELLOW </td>
+                            <td>WHITE </td>
+                            <td>GREEN </td>
+                        </tr>
+                        <tr>
+                            <td>{{ p1 }}</td>
+                            <td>{{ p2 }}</td>
+                            <td>{{ p3 }}</td>
+                            <td>{{ p4 }}</td>
+                            <td>{{ p5 }}</td>
+                            <td>{{ p6 }}</td>
+                            <td>{{ p7 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Move Speed  </td>
+                            <td>{{ avg }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            <form method="POST" action ="">
+                <h3> Move to</h3>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" name="Selection">
+            </form>
+
+        </div>
+    </div>
 
 </body>
 </html>

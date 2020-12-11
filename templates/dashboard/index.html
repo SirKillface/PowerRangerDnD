@@ -3,19 +3,27 @@
 <head>
 <style>
 h1 {text-align: center;}
-
+body {background-color: black;}
 .vertical-center {
   margin: 0;
   position: absolute;
   left: 50%;
-  {#-ms-transform: translateY(-50%);#}
-  {#transform: translateY(-50%);#}
+    }
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 </style>
 </head>
 <body>
 
-<h1>Welcome to the Game Rangers</h1>
+<img src="https://c4.wallpaperflare.com/wallpaper/134/364/49/power-rangers-mighty-morphin-power-rangers-tv-series-tv-wallpaper-preview.jpg" class="center">
+<h1 style="color:white;">Welcome to the Game Rangers</h1>
 <button class="vertical-center" onclick="window.location.href = '/gameLoop/';">Start Game </button>
+<audio controls autoplay>
+     <source src="theme.mp3" type="audio/mpeg">
+</audio>
 </body>
 </html>
