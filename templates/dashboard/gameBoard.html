@@ -42,11 +42,38 @@
             <p id="map"></p>
             <script>
             console.log("test")
-            {#var canvas = document.getElementById("myCanvas");#}
-            var mapData = "{{ mapData|safe }}";
-            {#var ctx = canvas.getContext("2d");#}
-            console.log("map = " + mapData)
-            document.getElementById("map").innerHTML = mapData;
+            var mapData = "{{ mapData }}";
+            var allArray = mapData.split('')
+            var map = []
+            var i;
+            for (i = 0; i < allArray.length; i++) {
+              if(allArray[i] == 'O'){
+                  map.push(allArray[i])
+              }
+              else if(allArray[i] == 'R'){
+                  map.push(allArray[i])
+              }
+              else if(allArray[i] == 'X'){
+                  map.push(allArray[i])
+              }
+              else if(allArray[i] == 'T'){
+                  map.push(allArray[i])
+              }
+            }
+            var test = ""
+            for (i = 1; i < map.length; i++) {
+
+                if(i % 9 == 0){
+                    test = test.concat(map[i] + ' ');
+                    console.log(test)
+                    test = ""
+                }
+                else{
+                    test = test.concat(map[i] + ' ');
+                }
+            }
+
+            document.getElementById("map").innerHTML = map;
             </script>
         </div>
         <div class="roll-container">

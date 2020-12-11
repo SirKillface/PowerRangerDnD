@@ -153,7 +153,7 @@ def buildMap():
     for i in range(82):
         newMap.append("O")
 
-    newMap[73] = "P"
+    newMap[73] = "T"
     newMap[41] = 'X'
 
     for suit in morphSuit:
@@ -194,7 +194,7 @@ def updateMap(x1, y1, x2, y2):
     oldPos = x1 + 9*(y1-1)
     newPos = x2 + 9*(y2-1)
     newMap[oldPos] = "O"
-    newMap[newPos] = "P"
+    newMap[newPos] = "T"
 
     for i in newMap:
         strMap += i
