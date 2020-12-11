@@ -37,90 +37,18 @@
 
 <body>
     <div class="container">
-        <div class="map">
-            <div class="grid-item">1</div>
-            <div class="grid-item">2</div>
-            <div class="grid-item">3</div>
-            <div class="grid-item">4</div>
-            <div class="grid-item">5</div>
-            <div class="grid-item">6</div>
-            <div class="grid-item">7</div>
-            <div class="grid-item">8</div>
-            <div class="grid-item">9</div>
-            <div class="grid-item">2</div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item">3</div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item">4</div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item">5</div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item">6</div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item">7</div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item">8</div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item">9</div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
+        <div>
+{#            <canvas id="myCanvas" width="900" height="900"></canvas>#}
+            <p id="map"></p>
+            <script>
+            console.log("test")
+            {#var canvas = document.getElementById("myCanvas");#}
+            var mapData = "{{ mapData|safe }}";
+            {#var ctx = canvas.getContext("2d");#}
+            console.log("map = " + mapData)
+            document.getElementById("map").innerHTML = mapData;
+            </script>
         </div>
-    {#<canvas id="myCanvas" width="560" height="560" style="border:2px solid #d3d3d3;"></canvas>#}
         <div class="roll-container">
             <h2>Terrain: {{ area }}</h2>
             <h2>Number of Enemy: {{ numEnemy }}</h2>
@@ -128,8 +56,8 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td> RED </td>
-                            <td> BLUE </td>
+                            <td>RED </td>
+                            <td>BLUE </td>
                             <td>BLACK </td>
                             <td>PINK </td>
                             <td>YELLOW </td>
@@ -162,6 +90,5 @@
         </div>
     </div>
 
-    {#<script src="scripts/gameBoard.js"> </script>#}
 </body>
 </html>
