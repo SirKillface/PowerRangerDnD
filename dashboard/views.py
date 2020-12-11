@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import MorphSuit, Movement, MoveForm, RangerTeam, Map
 import random
 import os
+import json
 
 
 # Create your views here.
@@ -48,8 +49,10 @@ def gameLoop(request):
     if numEnemy == '8':
         numEnemy = "GOLDAR"
 
-    print("moved " + str(avg))
+    with open("map.json", "r") as jsonFile:
+        mapData = json.load(jsonFile)
 
+    print("moved " + str(avg))
     context = {"p1": p1,
                "p2": p2,
                "p3": p3,
@@ -60,7 +63,8 @@ def gameLoop(request):
                "avg": avg,
                "area": area,
                'numEnemy': numEnemy,
-               'form': form}
+               'form': form,
+               "mapData": mapData}
 
     if request.method == "POST":
         form = MoveForm(request.POST)
@@ -80,8 +84,9 @@ def gameLoop(request):
 def newGame():
     MorphSuit.objects.all().delete()
     RangerTeam.objects.all().delete()
-    if os.path.exists("map.txt"):
-        os.remove("map.txt")
+    Map.objects.all().delete()
+    if os.path.exists("map.json"):
+        os.remove("map.json")
 
 
 def terainType():
@@ -139,6 +144,7 @@ def encounter(avg):
 
 
 def buildMap():
+    mapDict = {'map': ''}
     morphSuit = MorphSuit.objects.all()
     map = Map()
     newMap = []
@@ -171,19 +177,19 @@ def buildMap():
     map.drawMap = strMap
     map.save()
 
-    f = open("map.txt", "a")
-    f.write(strMap)
-    f.close()
+    mapDict.update(map=strMap)
+
+    jsonObj = json.dumps(mapDict, indent=1)
+    with open("map.json", "w") as outfile:
+        outfile.write(jsonObj)
 
 
 def updateMap(x1, y1, x2, y2):
+    mapTable = Map.objects.all().first()
     newMap = []
     strMap = ""
-    print("update map")
-    f = open("map.txt", "r")
-    file = f.readlines()
-    f.close()
-    map = file[0]
+    map = mapTable.drawMap
+
     newMap[:] = map
     oldPos = x1 + 9*(y1-1)
     newPos = x2 + 9*(y2-1)
@@ -193,6 +199,14 @@ def updateMap(x1, y1, x2, y2):
     for i in newMap:
         strMap += i
 
-    f = open("map.txt", "w")
-    f.write(strMap)
-    f.close()
+    mapTable.drawMap = strMap
+    mapTable.save()
+
+    with open("map.json", "r") as jsonFile:
+        data = json.load(jsonFile)
+
+    data["map"] = strMap
+
+    with open("map.json", "w") as jsonFile:
+        json.dump(data, jsonFile)
+
