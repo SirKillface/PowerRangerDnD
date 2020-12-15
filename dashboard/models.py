@@ -18,7 +18,7 @@ class MorphSuit(models.Model):
     suit_name = models.CharField(max_length=20, blank=True)
     suit_x = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(9)])
     suit_y = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(9)])
-    is_found= models.BooleanField(default=False)
+    is_found = models.BooleanField(default=False)
 
     def __str__(self):
         return '{0}'.format(self.suit_name)

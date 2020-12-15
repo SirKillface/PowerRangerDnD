@@ -10,11 +10,14 @@
             border: 1px solid black;
             border-collapse: collapse;
         }
+
         .container{
             display: grid;
             grid-template-columns: auto auto;
         }
 
+        canvas{border: 1px solid black}
+        body{}
         .map {
             display: grid;
             width: 900px;
@@ -38,38 +41,48 @@
 <body>
     <div class="container">
         <div>
-{#            <canvas id="myCanvas" width="900" height="900"></canvas>#}
+            <canvas id="myCanvas" width="1000" height="950"></canvas>
             <p id="map"></p>
             <script>
-            console.log("test")
             var mapData = "{{ mapData }}";
             var allArray = mapData.split('')
             var map = []
-            var i;
-            for (i = 0; i < allArray.length; i++) {
-              if(allArray[i] == 'O'){
-                  map.push(allArray[i])
-              }
-              else if(allArray[i] == 'R'){
-                  map.push(allArray[i])
-              }
-              else if(allArray[i] == 'X'){
-                  map.push(allArray[i])
-              }
-              else if(allArray[i] == 'T'){
-                  map.push(allArray[i])
-              }
-            }
-            var test = ""
-            for (i = 1; i < map.length; i++) {
 
-                if(i % 9 == 0){
-                    test = test.concat(map[i] + ' ');
-                    console.log(test)
-                    test = ""
+            buildMapStr(allArray)
+            console.log("Map")
+            printMap(map)
+            {#drawMap(map)#}
+
+            function buildMapStr(jsonArr){
+                var i;
+                for (i = 0; i < jsonArr.length; i++) {
+                  if(jsonArr[i] == 'O'){
+                      map.push(jsonArr[i])
+                  }
+                  else if(jsonArr[i] == 'R'){
+                      map.push(jsonArr[i])
+                  }
+                  else if(jsonArr[i] == 'X'){
+                      map.push(jsonArr[i])
+                  }
+                  else if(jsonArr[i] == 'T'){
+                      map.push(jsonArr[i])
+                  }
                 }
-                else{
-                    test = test.concat(map[i] + ' ');
+            }
+
+            function printMap(mapArr){
+                var strMap = ""
+                var i;
+                for (i = 1; i < mapArr.length; i++) {
+                    if(i % 9 == 0){
+                        strMap = strMap.concat(mapArr[i] + ' ');
+                        console.log(strMap)
+                        strMap = ""
+                    }
+                    else{
+                        strMap = strMap.concat(mapArr[i] + ' ');
+                    }
                 }
             }
 
@@ -83,22 +96,12 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td>RED </td>
-                            <td>BLUE </td>
-                            <td>BLACK </td>
-                            <td>PINK </td>
-                            <td>YELLOW </td>
-                            <td>WHITE </td>
-                            <td>GREEN </td>
+                            <td>RED </td> <td>BLUE </td> <td>BLACK </td> <td>PINK </td>
+                            <td>YELLOW </td> <td>WHITE </td> <td>GREEN </td>
                         </tr>
                         <tr>
-                            <td>{{ p1 }}</td>
-                            <td>{{ p2 }}</td>
-                            <td>{{ p3 }}</td>
-                            <td>{{ p4 }}</td>
-                            <td>{{ p5 }}</td>
-                            <td>{{ p6 }}</td>
-                            <td>{{ p7 }}</td>
+                            <td>{{ p1 }}</td> <td>{{ p2 }}</td> <td>{{ p3 }}</td> <td>{{ p4 }}</td>
+                            <td>{{ p5 }}</td> <td>{{ p6 }}</td> <td>{{ p7 }}</td>
                         </tr>
                         <tr>
                             <td>Move Speed  </td>
@@ -116,6 +119,6 @@
 
         </div>
     </div>
-
+{#    <meta http-equiv="refresh" content="8" />#}
 </body>
 </html>

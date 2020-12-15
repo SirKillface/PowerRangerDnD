@@ -165,14 +165,7 @@ def buildMap():
     for i in newMap:
         strMap += i
 
-    # print("len map " + str(len(newMap)))
-    j = 1
-    while j < len(strMap):
-        if j % 9 == 0:
-            print(strMap[j])
-        else:
-            print(strMap[j], end=' ')
-        j += 1
+    printBoard(strMap)
 
     map.drawMap = strMap
     map.save()
@@ -210,3 +203,14 @@ def updateMap(x1, y1, x2, y2):
     with open("map.json", "w") as jsonFile:
         json.dump(data, jsonFile)
 
+    printBoard(strMap)
+
+
+def printBoard(strMap):
+    j = 1
+    while j < len(strMap):
+        if j % 9 == 0:
+            print(strMap[j])
+        else:
+            print(strMap[j], end=' ')
+        j += 1
